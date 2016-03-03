@@ -28,9 +28,7 @@ public class Login{
 		driver.findElement(By.id("js-email")).clear();
 		driver.findElement(By.id("js-password")).clear();
 		driver.findElement(By.id("js-email")).sendKeys(lm);
-
 		driver.findElement(By.id("js-password")).sendKeys(lm2);
-
 		driver.findElement(By.id("js-btn-submit")).click();
 
 	}
@@ -48,19 +46,19 @@ public class Login{
 			for(int row=1;row <rows;row++){
 				driver.get(baseUrl + "/");
 				driver.findElement(By.linkText("LOG IN")).click();
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 				String domain=sheet.getCell(1,row).getContents();
 				log_email(sheet.getCell(2,row).getContents(), sheet.getCell(3,row).getContents());
-				System.out.print("\nemail:"+sheet.getCell(2,row).getContents()+" , ");
-				System.out.print("pass:"+sheet.getCell(3,row).getContents());
-				System.out.print("->"+domain);
-				Thread.sleep(3500);
+				System.out.println("===============================================");
+				System.out.print("Email:"+sheet.getCell(2,row).getContents()+" , ");
+				System.out.print("Pass:"+sheet.getCell(3,row).getContents()+", ");
+				System.out.println("Domain:"+domain+"\n");
+				Thread.sleep(1000);
 				//show errors
 				if( isElementPresent(By.xpath("//form[@id='js-login-form']/div/p"))==true){
-					System.out.print("->");
-					System.out.print(driver.findElement(By.xpath("//form[@id='js-login-form']/div/p")).getText());
-					System.out.print(driver.findElement(By.xpath("//form[@id='js-login-form']/div[2]/p")).getText());
-					System.out.print(driver.findElement(By.id("js-message-response")).getText());
+					System.out.println("  email-->"+driver.findElement(By.xpath("//form[@id='js-login-form']/div/p")).getText());
+					System.out.println("  pass-->"+driver.findElement(By.xpath("//form[@id='js-login-form']/div[2]/p")).getText());
+					System.out.println("  all-->"+driver.findElement(By.id("js-message-response")).getText());
 				}
 				else{
 					if (isElementPresent(By.linkText(domain))){
@@ -68,10 +66,10 @@ public class Login{
 						Thread.sleep(3500);
 						driver.findElement(By.id("tour-username")).click();
 						driver.findElement(By.linkText("exit_to_app Sign out")).click();
-						System.out.print("-->logout");
+						System.out.println("-->LOGOUT");
 					}
 					else{
-						System.out.print("-> cannot find domain "+domain);
+						System.out.println("-> cannot find domain "+domain);
 						driver.findElement(By.xpath("//div[@id='login-form']/div[2]/div/button")).click();
 						driver.findElement(By.linkText("Sign Out")).click();
 					}
